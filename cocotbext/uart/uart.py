@@ -50,7 +50,7 @@ class UartSource:
         self.queue = Queue()
 
         self._idle = Event()
-        self._idle.set()
+        self._idle.clear()
 
         self._data.setimmediatevalue(1)
 
@@ -137,6 +137,7 @@ class UartSource:
 
             self.log.info("Write byte 0x%02x", b)
 
+            await bit_t
             # start bit
             data.value = 0
             await bit_t
