@@ -98,6 +98,7 @@ class UartSource:
         for b in data:
             await self.queue.put(int(b))
             self._idle.clear()
+            await self._idle.wait()
 
     def write_nowait(self, data):
         for b in data:
@@ -131,8 +132,8 @@ class UartSource:
                 self.active = False
                 self._idle.set()
 
-            b = await self.queue.get()
             self.active = True
+            b = await self.queue.get()
 
             self.log.info("Write byte 0x%02x", b)
 
